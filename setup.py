@@ -10,24 +10,32 @@ import sys
 sys.path.append( '.' )
 from mininet.net import VERSION
 
-scripts = [ join( 'bin', filename ) for filename in [ 'mn', 'miniccnx', 'miniccnxedit' ] ]
+SUPPORTED_MN_VERSION = "2.0 2.1.0 2.1.0+"
 
-modname = distname = 'mininet'
+if not VERSION in SUPPORTED_MN_VERSION:
+  print 'Mininet version %s is not supported' % VERSION
+  print 'Supported versions: %s' % SUPPORTED_MN_VERSION
+  quit()
+
+scripts = [ join( 'bin', filename ) for filename in [ 'miniccnx', 'miniccnxedit' ] ]
+
+modname = distname = 'ccnxmn'
+CCNXVERSION=1
 
 setup(
     name=distname,
-    version=VERSION,
+    version=CCNXVERSION,
     description='Process-based OpenFlow emulator with CCNx extension',
-    author='Bob Lantz, Carlos Cabral',
-    author_email='rlantz@cs.stanford.edu, cabral@dca.fee.unicamp.br',
-    packages=find_packages(exclude='test'),
+    author='Carlos Cabral, PhiHo Hoang',
+    author_email='cabral@dca.fee.unicamp.br',
+    packages=[ 'ccnxmn' ],
     long_description="""
         Mininet is a network emulator which uses lightweight
         virtualization to create virtual networks for rapid
         prototyping of Software-Defined Network (SDN) designs
         using OpenFlow. http://openflow.org/mininet.
-	This also includes an extension for using Content Centric
-	Networks based on the NDN model (project CCNx).
+	      ccnxmn is an extension for using Content Centric
+	      Networks based on the NDN model (project CCNx).
         """,
     classifiers=[
           "License :: OSI Approved :: BSD License",

@@ -3,10 +3,10 @@
 from mininet.topo import Topo
 from mininet.net import Mininet
 from mininet.log import setLogLevel, output, info
-from mininet.cli import CLI
-from mininet.node import CPULimitedCCNHost, CCNHost
+from ccnxmn.CCN_cli import CCNxCLI
+from ccnxmn.CCN_node import CPULimitedCCNHost, CCNHost
 from mininet.link import TCLink
-from mininet.conf_parser import parse_hosts,parse_routers, parse_links
+from ccnxmn.conf_parser import parse_hosts,parse_routers, parse_links
 import os.path, time
 import optparse
 import datetime
@@ -51,7 +51,7 @@ class CCNTopo(Topo):
         self.isLimited = False
 
         for host in hosts_conf:
-#	    print host
+#     print host
             if host.cpu != None and self.isLimited != True:
                 self.isLimited = True
             self.addHost(host.name, app=host.app, fib=host.uri_tuples,cpu=host.cpu,cores=host.cores,cache=host.cache)
@@ -119,7 +119,7 @@ def execute(template_file='miniccnx.conf', testbed=False):
             if host.params['app'] != '_':
                 host.cmd(host.params['app'])
 
-    CLI(net)
+    CCNxCLI(net)
     net.stop()
 
 if __name__ == '__main__':
