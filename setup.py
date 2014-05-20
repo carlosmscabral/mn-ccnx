@@ -10,7 +10,7 @@ import sys
 sys.path.append( '.' )
 from mininet.net import VERSION
 
-SUPPORTED_MN_VERSION = "2.0 2.1.0 2.1.0+"
+SUPPORTED_MN_VERSION = "2.0.0 2.1.0 2.1.0+"
 
 if not VERSION in SUPPORTED_MN_VERSION:
   print 'Mininet version %s is not supported' % VERSION
@@ -34,8 +34,8 @@ setup(
         virtualization to create virtual networks for rapid
         prototyping of Software-Defined Network (SDN) designs
         using OpenFlow. http://openflow.org/mininet.
-	      ccnxmn is an extension for using Content Centric
-	      Networks based on the NDN model (project CCNx).
+        ccnxmn is an extension for using Content Centric
+        Networks based on the NDN model (project CCNx).
         """,
     classifiers=[
           "License :: OSI Approved :: BSD License",
