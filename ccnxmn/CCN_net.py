@@ -34,26 +34,26 @@ class CCNxMininet(Mininet):
                   autoSetMacs=False, autoStaticArp=False, autoPinCpus=False,
                   listenPort=None ):
 
+        self.ccnNetBase = '1.0.0.0'
+
         Mininet.__init__( self, topo, switch, host, controller, link, intf,
                           build, xterms, cleanup, ipBase, inNamespace,
                           autoSetMacs, autoStaticArp, autoPinCpus, listenPort )
-                          
-        self.ccnNetBase = '1.0.0.0'
 
     def isCCNhost(self, node):
         if 'fib' in node.params:
             return True
         else:
             return False
-        
+
     def configHosts( self ):
         "Configure a set of hosts."
         for host in self.hosts:
             info( host.name + ' ' )
             intf = host.defaultIntf()
             if self.isCCNhost(host):
-                host.configCCN()    
-                host.configDefault(ip=None,mac=None)         
+                host.configCCN()
+                host.configDefault(ip=None,mac=None)
             elif intf:
                 host.configDefault()
             else:
@@ -67,7 +67,7 @@ class CCNxMininet(Mininet):
             # it needs to be done somewhere.
             host.cmd( 'ifconfig lo up' )
         info( '\n' )
-       
+
     def buildFromTopo( self, topo=None ):
         """Build mininet from a topology object
            At the end of this function, everything should be connected
@@ -110,7 +110,7 @@ class CCNxMininet(Mininet):
                 src.setIP(ipStr(ipParse(self.ccnNetBase) + 1) + '/30', intf=src.name + '-eth' + str(srcPort))
                 dst.setIP(ipStr(ipParse(self.ccnNetBase) + 2) + '/30', intf=dst.name + '-eth' + str(dstPort))
                 self.ccnNetBase=nextCCNnet(self.ccnNetBase)
-                
+
             info( '(%s, %s) ' % ( src.name, dst.name ) )
 
         info( '\n' )
