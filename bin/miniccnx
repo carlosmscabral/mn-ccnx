@@ -1,7 +1,8 @@
 #!/usr/bin/python
 
 from mininet.topo import Topo
-from mininet.net import Mininet
+#from mininet.net import Mininet
+from ccnxmn.CCN_net import CCNxMininet
 from mininet.log import setLogLevel, output, info
 from ccnxmn.CCN_cli import CCNxCLI
 from ccnxmn.CCN_node import CPULimitedCCNHost, CCNHost
@@ -85,13 +86,13 @@ def execute(template_file='miniccnx.conf', testbed=False):
     t = datetime.datetime.now()
 
     if topo.isTCLink == True and topo.isLimited == True:
-        net = Mininet(topo,host=CPULimitedCCNHost,link=TCLink)
+        net = CCNxMininet(topo,host=CPULimitedCCNHost,link=TCLink)
     elif topo.isTCLink == True and topo.isLimited == False:
-        net = Mininet(topo,host=CCNHost,link=TCLink)
+        net = CCNxMininet(topo,host=CCNHost,link=TCLink)
     elif topo.isTCLink == False and topo.isLimited == True:
-        net = Mininet(topo,host=CPULimitedCCNHost)
+        net = CCNxMininet(topo,host=CPULimitedCCNHost)
     else:
-        net = Mininet(topo,host=CCNHost)
+        net = CCNxMininet(topo,host=CCNHost)
 
     t2 = datetime.datetime.now()
 
