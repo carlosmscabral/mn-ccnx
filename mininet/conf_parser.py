@@ -110,21 +110,22 @@ def parse_links(conf_arq):
             break
 
         args = line.split()
-        h1, h2 = args.pop(0).split(':')
+        if len(args) != 0:
+            h1, h2 = args.pop(0).split(':')
 
-        link_dict = {}
+            link_dict = {}
 
-        for arg in args:
-            arg_name, arg_value = arg.split('=')
-            key = arg_name
-            value = arg_value
-            if key in ['bw','jitter','max_queue_size']:
-                value = int(value)
-            if key in ['loss']:
-                value = float(value)
-            link_dict[key] = value
+            for arg in args:
+                arg_name, arg_value = arg.split('=')
+                key = arg_name
+                value = arg_value
+                if key in ['bw','jitter','max_queue_size']:
+                    value = int(value)
+                if key in ['loss']:
+                    value = float(value)
+                link_dict[key] = value
 
-        links.append(confCCNLink(h1,h2,link_dict))
+            links.append(confCCNLink(h1,h2,link_dict))
 
 
     return links
